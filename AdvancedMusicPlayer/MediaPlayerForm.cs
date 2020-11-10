@@ -56,7 +56,7 @@ namespace AdvancedMusicPlayer
 
         }
 
-        //3 - displaySongs Method - It is used to display the tracklist sorted by title in a gridview
+        //3 - displaySongs Method - It is used to display the tracklist sorted by title in a gridview.
         private void displaySongs()
         {
             sortedSongs = binaryTree.display();
@@ -277,8 +277,7 @@ namespace AdvancedMusicPlayer
                 {
                     try
                     {
-                        StreamWriter writer = new StreamWriter(trackListPath);
-
+                        using (StreamWriter writer = new StreamWriter(trackListPath))
                         using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                         {
                             List<Song> songsToCSV = new List<Song>();
@@ -294,12 +293,12 @@ namespace AdvancedMusicPlayer
                             }
 
                             csv.WriteRecords(songsToCSV);
-                            setLabel(Enum.TypeMessage.Success, "Tracklist has been saved.");
+                            setLabel(Enum.TypeMessage.Success, "Tracklist has been saved on " + trackListPath);
                         }
                     }
-                    catch
+                    catch(IOException ex)
                     {
-                        setLabel(Enum.TypeMessage.Error, "Error to save the tracklist.");
+                        setLabel(Enum.TypeMessage.Error, "Error to save the tracklist." + ex.Message);
                     }
                 }
                 else
