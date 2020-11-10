@@ -29,9 +29,9 @@ namespace AdvancedMusicPlayer
         //Constructor Method
         public Song(string title, string album, string artist, int year, string path)
         {
-            this.title = title;
-            this.album = album == string.Empty ? "Unknown" : album;
-            this.artist = artist == string.Empty ? "Unknown" : artist;
+            this.title = string.IsNullOrEmpty(title) ? "Unknown" : title;
+            this.album = string.IsNullOrEmpty(album) ? "Unknown" : album;
+            this.artist = string.IsNullOrEmpty(artist) ? "Unknown" : artist;
             this.year = year;
             this.path = path;
         }
